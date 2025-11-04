@@ -15,7 +15,9 @@ interface User {
 
 export default function AdminDashboard() {
     const [users, setUsers] = useState<User[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [stats, setStats] = useState<any>(null);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [loading, setLoading] = useState(true);
     const [event, setEvent] = useState({ name: "engagement", date: "", description: "" });
 
@@ -32,11 +34,13 @@ export default function AdminDashboard() {
                 headers: { "x-admin-token": token! },
             });
             setUsers(usersRes.data);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
-            showError("Error fetching dashboard data");
+            showError(err ||"Error fetching dashboard data");
         } finally {
             setLoading(false);
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     };
 
     const updateEvent = async () => {
@@ -46,18 +50,18 @@ export default function AdminDashboard() {
                 headers: { "x-admin-token": token!, "Content-Type": "application/json" },
                 body: JSON.stringify(event),
             });
+            console.log(res)
             showSuccess("Event updated successfully!");
         } catch {
             showError("Error updating event.");
         }
     };
 
-    // 1. New Logout Handler
     const handleLogout = () => {
         localStorage.removeItem("adminToken");
         window.location.href = "/admin";
     };
-
+/* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         if (!token) {
             window.location.href = "/admin";
@@ -65,6 +69,7 @@ export default function AdminDashboard() {
         }
         fetchData();
     }, []);
+    /* eslint-disable react-hooks/exhaustive-deps */
 
     if (loading) return <p className="text-center mt-20">Loading Dashboard...</p>;
 

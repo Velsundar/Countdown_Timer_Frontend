@@ -21,7 +21,7 @@ type FormData = z.infer<typeof formSchema>;
 export default function WelcomeForm() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
+//   const [message, setMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -48,6 +48,7 @@ export default function WelcomeForm() {
       } else {
         showError(res.error);
       }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       showError(err.message || "An error occurred. Please try again.");
     } finally {
@@ -120,9 +121,9 @@ export default function WelcomeForm() {
         </button>
       </form>
 
-      {message && (
+      {/* {message && (
         <p className="text-center mt-4 text-sm text-charcoal">{message}</p>
-      )}
+      )} */}
     </motion.div>
   );
 }

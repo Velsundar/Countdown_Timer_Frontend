@@ -29,14 +29,15 @@ export default function HeartAnimation({ email }: { email: string }) {
         try {
             const res = await apiClient(`/streaks/${email}`);
             setHeart(res.data);
-        } catch (err) {
+        } catch (err: unknown) {
             console.error("Error fetching heart data:", err);
         }
     };
-
+/* eslint-disable react-hooks/exhaustive-deps */
     useEffect(() => {
         loadData();
     }, [email]);
+    /* eslint-disable react-hooks/exhaustive-deps */
 
     const handleTap = async () => {
         if (loading || justTapped) return;
@@ -64,6 +65,7 @@ export default function HeartAnimation({ email }: { email: string }) {
             } else {
                 showError(res.error);
             }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             showError(err.message);
         } finally {

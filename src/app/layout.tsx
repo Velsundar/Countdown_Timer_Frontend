@@ -4,6 +4,7 @@ import { Toaster } from "sonner";
 
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400", "600", "700"] });
+console.log(playfair)
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
